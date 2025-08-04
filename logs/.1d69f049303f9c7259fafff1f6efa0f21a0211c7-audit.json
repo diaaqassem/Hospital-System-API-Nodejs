@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "E:\\Courses\\ITI\\Hospital System\\code\\logs\\.1d69f049303f9c7259fafff1f6efa0f21a0211c7-audit.json",
+    "files": [
+        {
+            "date": 1754282501563,
+            "name": "E:\\Courses\\ITI\\Hospital System\\code\\logs\\application-2025-08-04.log",
+            "hash": "5555517918a238e9a4e881220913c55875a4ff7353639fc73812715688929cfe"
+        },
+        {
+            "date": 1754227884192,
+            "name": "E:\\Courses\\ITI\\Hospital System\\code\\logs\\application-2025-08-03.log",
+            "hash": "36371611a8487964236206f8c3ca084bc7f068be4e06b42330a7248334168c37"
+        }
+    ],
+    "hashType": "sha256"
+}
