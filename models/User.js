@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
   resetVerified: Boolean,
   role: {
     type: String,
-    enum: ["patient", "doctor", "manager", "pharmacy", "nurse"],
+    enum: ["patient", "doctor", "manager", "pharmacy", "nurse", "admin"],
     default: "patient",
   },
 });
@@ -63,6 +63,16 @@ userSchema.methods.correctPassword = async function (
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
+
+// // 2) Generate the random reset token
+// userSchema.methods.generateResetToken = function () {
+//   const resetToken = jwt.sign({ id: this._id }, process.env.JWT_RESET_TOKEN, {
+//     expiresIn: "10m",
+//   });
+//   this.resetCode = resetToken;
+//   this.resetCodeExpire = Date.now() + 10 * 60 * 1000;
+//   return this;
+// };
 
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {

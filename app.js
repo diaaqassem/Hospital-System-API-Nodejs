@@ -5,20 +5,20 @@ const cookieParser = require("cookie-parser");
 const { applySecurityMiddleware } = require("./middlewares/security");
 const globalErrorHandler = require("./middlewares/errorHandler");
 const connectDB = require("./config/db");
-const swaggerUI = require("swagger-ui-express");
-const swaggerSpec = require("./docs/swaggerDef");
 
 // Import routes
 const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
+const clinicRouter = require("./routes/clinicRoutes");
 const doctorRouter = require("./routes/doctorRoutes");
+const nurseRouter = require("./routes/nurseRoutes");
 const patientRouter = require("./routes/patientRoutes");
 const appointmentRouter = require("./routes/appointmentRoutes");
 const pharmacyRouter = require("./routes/pharmacyRoutes");
 const medicationRouter = require("./routes/medicationRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const roomRouter = require("./routes/roomRoutes");
-const billingRouter = require("./routes/billingRoutes");
+// const billingRouter = require("./routes/billingRoutes");
 const logger = require("./utils/logger");
 
 // Initialize express app
@@ -35,50 +35,54 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+// Body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
 
-// API documentation
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
-
 // Mount routers
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/clinics", clinicRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/doctors", doctorRouter);
+app.use("/api/v1/nurses", nurseRouter);
 app.use("/api/v1/patients", patientRouter);
 app.use("/api/v1/appointments", appointmentRouter);
 app.use("/api/v1/pharmacies", pharmacyRouter);
 app.use("/api/v1/medications", medicationRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/rooms", roomRouter);
-app.use("/api/v1/bills", billingRouter);
+// app.use("/api/v1/bills", billingRouter);
 
 // logger
-app.use(logger.requestLogger);
-logger.info("Server started on port 3000");
-logger.error("Database connection failed", { error: err });
-logger.debug("Debug information", { someObject });
-logger.securityLogger("Failed login attempt", null, {
-  ip: req.ip,
-  userAgent: req.headers["user-agent"],
-  email: req.body.email,
-});
-logger.auditLogger("User updated", user, req.user, {
-  changedFields: {
-    from: oldValues,
-    to: newValues,
-  },
-});
+// // app.use(logger.requestLogger);
+// logger.info("Server started on port 3000");
+// logger.error("Database connection failed", { error: err });
+// logger.debug("Debug information", { someObject });
+// logger.securityLogger("Failed login attempt", null, {
+//   ip: req.ip,
+//   userAgent: req.headers["user-agent"],
+//   email: req.body.email,
+// });
+// logger.auditLogger("User updated", user, req.user, {
+//   changedFields: {
+//     from: oldValues,
+//     to: newValues,
+//   },
+// });
 
 // For Mongoose
-mongoose.set("debug", (collection, method, query, doc) => {
-  logger.databaseLogger({
-    collection,
-    operation: method,
-    criteria: query,
-    duration: doc,
-  });
-});
+// mongoose.set("debug", (collection, method, query, doc) => {
+//   logger.databaseLogger({
+//     collection,
+//     operation: method,
+//     criteria: query,
+//     duration: doc,
+//   });
+// });
 
 // Handle 404
 app.all("*", (req, res, next) => {
@@ -88,4 +92,11 @@ app.all("*", (req, res, next) => {
 // Global error handler
 app.use(globalErrorHandler);
 
-module.exports = app;
+// app.use(errorHandler);
+// run app
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}...`);
+});
+
+// module.exports = app;

@@ -3,16 +3,26 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const authController = require("../controllers/authController");
 
-// Protect all routes after this middleware
+// // Public routes (no authentication required)
+// router.post("/signup", authController.signup);
+// router.post("/login", authController.login);
+// router.post("/forgotPassword", authController.forgotPassword);
+// router.patch("/resetPassword/:token", authController.resetPassword);
+// // router.get("/me", userController.getMe, userController.getUser);
+
+// // Protect all routes after this middleware (require authentication)
 router.use(authController.protect);
 
-router.get("/me", userController.getMe);
+// Routes for logged-in users
+router.get("/me", userController.getMe, userController.getUser);
 router.patch("/updateMe", userController.updateMe);
 router.delete("/deleteMe", userController.deleteMe);
+router.patch("/updateMyPassword", authController.updatePassword);
 
-// Restrict to admin for the following routes
+// Restrict the following routes to admin only
 router.use(authController.restrictTo("admin"));
 
+// Admin routes
 router
   .route("/")
   .get(userController.getAllUsers)
@@ -24,5 +34,4 @@ router
   .patch(userController.updateUser)
   .delete(userController.deleteUser);
 
-// Make sure you're exporting the router directly
-module.exports = router; // NOT module.exports = { router }
+module.exports = router;
