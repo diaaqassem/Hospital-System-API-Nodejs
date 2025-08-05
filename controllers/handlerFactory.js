@@ -8,7 +8,13 @@ const logger = require("../utils/logger");
  */
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.findByIdAndDelete(req.params.id);
+    let id;
+    if (req.params.id) {
+      id = req.params.id;
+    } else if (req.user._id) {
+      id = req.user._id;
+    }
+    const doc = await Model.findByIdAndDelete(id);
 
     if (!doc) {
       return next(new AppError("No document found with that ID", 404));

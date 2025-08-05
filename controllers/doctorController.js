@@ -1,38 +1,39 @@
 const Doctor = require("../models/Doctor");
 const User = require("../models/User");
 const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/appError");
 const doctorService = require("../services/doctorService");
+const factory = require("./handlerFactory");
 
-exports.getAllDoctors = catchAsync(async (req, res, next) => {
-  const doctors = await doctorService.getAllDoctors(req.query);
+exports.getAllDoctors = factory.getAll(Doctor);
 
-  res.status(200).json({
-    status: "success",
-    results: doctors.length,
-    data: {
-      doctors,
-    },
-  });
-});
-
-exports.getDoctor = catchAsync(async (req, res, next) => {
-  const doctor = await doctorService.getDoctor(req.params.id);
-
-  if (!doctor) {
-    return next(new AppError("No doctor found with that ID", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      doctor,
-    },
-  });
-});
+exports.getDoctor = factory.getOne(Doctor, [
+  {
+    path: "User",
+  },
+  {
+    path: "Review",
+  },
+]);
 
 exports.createDoctor = catchAsync(async (req, res, next) => {
-  const newDoctor = await doctorService.createDoctor(req.body.user, req.body);
+  const userId = req.params.id;
+  const isDoctor = await User.findOne({ _id: userId });
+  const isFound = await Doctor.findOne({ user: userId });
+  console.log(isDoctor);
+  if (isFound) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Doctor is in Db",
+    });
+  }
+  if (isDoctor.role != "doctor") {
+    return res.status(400).json({ message: "User is npt a doctor" });
+  }
+  const newDoctor = await new Doctor({
+    user: userId,
+    ...req.body,
+  });
+  await newDoctor.save();
 
   res.status(201).json({
     status: "success",
@@ -42,33 +43,9 @@ exports.createDoctor = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.updateDoctor = catchAsync(async (req, res, next) => {
-  const doctor = await doctorService.updateDoctor(req.params.id, req.body);
+exports.updateDoctor = factory.updateOne(Doctor);
 
-  if (!doctor) {
-    return next(new AppError("No doctor found with that ID", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      doctor,
-    },
-  });
-});
-
-exports.deleteDoctor = catchAsync(async (req, res, next) => {
-  const doctor = await doctorService.deleteDoctor(req.params.id);
-
-  if (!doctor) {
-    return next(new AppError("No doctor found with that ID", 404));
-  }
-
-  res.status(204).json({
-    status: "success",
-    data: null,
-  });
-});
+exports.deleteDoctor = factory.deleteOne(Doctor);
 
 exports.getDoctorStats = catchAsync(async (req, res, next) => {
   const stats = await doctorService.getDoctorStats();

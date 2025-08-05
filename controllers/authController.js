@@ -5,7 +5,7 @@ const User = require("../models/User");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const sendEmail = require("../utils/email");
-const { signToken, createSendToken } = require("../utils/jwtToken");
+const { createSendToken } = require("../utils/jwtToken");
 // const signToken = (id) => {
 //   return jwt.sign({ id }, process.env.JWT_SECRET, {
 //     expiresIn: process.env.JWT_EXPIRES_IN,

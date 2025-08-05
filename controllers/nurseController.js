@@ -4,6 +4,7 @@ const catchAsync = require("../utils/catchAsync");
 const factory = require("./handlerFactory");
 
 exports.getAllNurses = factory.getAll(Nurse);
+// ------------------------------------------ update That
 exports.getNurse = factory.getOne(Nurse, { path: "assignedPatients" });
 exports.createNurse = factory.createOne(Nurse);
 exports.updateNurse = factory.updateOne(Nurse);

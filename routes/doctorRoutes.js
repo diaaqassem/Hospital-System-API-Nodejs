@@ -4,14 +4,7 @@ const authController = require("../controllers/authController");
 
 const router = express.Router();
 
-router
-  .route("/")
-  .get(doctorController.getAllDoctors)
-  .post(
-    authController.protect,
-    authController.restrictTo("admin", "manager"),
-    doctorController.createDoctor
-  );
+router.route("/").get(doctorController.getAllDoctors);
 
 router
   .route("/:id")
@@ -20,6 +13,11 @@ router
     authController.protect,
     authController.restrictTo("admin", "manager"),
     doctorController.updateDoctor
+  )
+  .post(
+    authController.protect,
+    authController.restrictTo("admin", "manager"),
+    doctorController.createDoctor
   )
   .delete(
     authController.protect,

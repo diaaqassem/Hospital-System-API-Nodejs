@@ -7,8 +7,8 @@ router.use(authController.protect);
 
 router.get("/", nurseController.getAllNurses);
 router.post(
-  "/",
-  authController.restrictTo("admin"),
+  "/useId",
+  authController.restrictTo("admin", "manager"),
   nurseController.createNurse
 );
 

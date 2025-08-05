@@ -35,7 +35,6 @@ const doctorSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    hospitalAffiliation: String,
     languages: [String],
     createdAt: {
       type: Date,
