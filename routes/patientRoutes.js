@@ -7,11 +7,11 @@ router.use(authController.protect);
 
 router.get(
   "/",
-  authController.restrictTo("admin", "doctor", "nurse"),
+  authController.restrictTo("admin", "doctor", "nurse", "reception"),
   patientController.getAllPatients
 );
 router.post(
-  "/",
+  "/:userId",
   authController.restrictTo("admin", "reception"),
   patientController.createPatient
 );

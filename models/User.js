@@ -40,7 +40,15 @@ const userSchema = new mongoose.Schema({
   resetVerified: Boolean,
   role: {
     type: String,
-    enum: ["patient", "doctor", "manager", "pharmacy", "nurse", "admin"],
+    enum: [
+      "patient",
+      "doctor",
+      "manager",
+      "pharmacy",
+      "nurse",
+      "admin",
+      "reception",
+    ],
     default: "patient",
   },
 });

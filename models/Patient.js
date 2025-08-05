@@ -12,17 +12,17 @@ const patientSchema = new mongoose.Schema({
   },
   height: Number,
   weight: Number,
-  allergies: [String],
-  chronicConditions: [String],
   medications: [String],
   emergencyContact: {
     name: String,
     relationship: String,
     phone: String,
   },
-  insuranceProvider: String,
-  insuranceId: String,
-  primaryCarePhysician: {
+  assignedNurse: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Nurse",
+  },
+  primaryDoctor: {
     type: mongoose.Schema.ObjectId,
     ref: "Doctor",
   },
@@ -34,14 +34,23 @@ patientSchema.pre(/^find/, function (next) {
   this.populate({
     path: "user",
     select: "name profileImage email",
-  }).populate({
-    path: "primaryCarePhysician",
-    select: "user specialty",
-    populate: {
-      path: "user",
-      select: "name",
-    },
-  });
+  })
+    .populate({
+      path: "primaryDoctor",
+      select: "user specialty",
+      populate: {
+        path: "user",
+        select: "name",
+      },
+    })
+    .populate({
+      path: "assignedNurse",
+      select: "user",
+      populate: {
+        path: "user",
+        select: "name",
+      },
+    });
   next();
 });
 

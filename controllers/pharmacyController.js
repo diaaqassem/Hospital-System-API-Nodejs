@@ -2,7 +2,6 @@ const Pharmacy = require("../models/Pharmacy");
 const User = require("../models/User");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
-const pharmacyService = require("../services/pharmacyService");
 const factory = require("./handlerFactory");
 
 exports.getAllPharmacies = factory.getAll(Pharmacy);
