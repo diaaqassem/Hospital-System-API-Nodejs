@@ -9,7 +9,7 @@ const roomSchema = new mongoose.Schema(
     },
     roomType: {
       type: String,
-      enum: ["general", "private", "icu", "operation", "emergency"],
+      enum: ["general", "private", "operation", "emergency"],
       required: [true, "Room must have a type"],
     },
     floor: {
@@ -20,10 +20,6 @@ const roomSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Room must have a capacity"],
     },
-    currentOccupancy: {
-      type: Number,
-      default: 0,
-    },
     costPerDay: {
       type: Number,
       required: [true, "Room must have a daily cost"],
@@ -32,11 +28,6 @@ const roomSchema = new mongoose.Schema(
       type: String,
       enum: ["available", "occupied", "maintenance"],
       default: "available",
-    },
-    facilities: [String],
-    isAc: {
-      type: Boolean,
-      default: false,
     },
     assignedNurse: {
       type: mongoose.Schema.ObjectId,
@@ -50,10 +41,15 @@ const roomSchema = new mongoose.Schema(
   }
 );
 
-roomSchema.pre("save", function (next) {
-  if (this.currentOccupancy > this.capacity) {
-    throw new Error("Occupancy cannot exceed room capacity");
-  }
+roomSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "assignedNurse",
+    select: "user",
+    populate: {
+      path: "user",
+      select: "name",
+    },
+  });
   next();
 });
 
