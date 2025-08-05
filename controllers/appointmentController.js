@@ -1,33 +1,15 @@
 const catchAsync = require("../utils/catchAsync");
+const Appointment = require("../models/Appointment");
+const Patient = require("../models/Patient");
+const Doctor = require("../models/Doctor");
+const User = require("../models/User");
 const AppError = require("../utils/appError");
 const appointmentService = require("../services/appointmentService");
+const factory = require("./handlerFactory");
 
-exports.getAllAppointments = catchAsync(async (req, res, next) => {
-  const appointments = await appointmentService.getAllAppointments(req.query);
+exports.getAllAppointments = factory.getAll(Appointment);
 
-  res.status(200).json({
-    status: "success",
-    results: appointments.length,
-    data: {
-      appointments,
-    },
-  });
-});
-
-exports.getAppointment = catchAsync(async (req, res, next) => {
-  const appointment = await appointmentService.getAppointment(req.params.id);
-
-  if (!appointment) {
-    return next(new AppError("No appointment found with that ID", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      appointment,
-    },
-  });
-});
+exports.getAppointment = factory.getOne(Appointment);
 
 exports.createAppointment = catchAsync(async (req, res, next) => {
   const newAppointment = await appointmentService.createAppointment(req.body);
@@ -40,32 +22,9 @@ exports.createAppointment = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.updateAppointment = catchAsync(async (req, res, next) => {
-  const appointment = await appointmentService.updateAppointment(
-    req.params.id,
-    req.body
-  );
+exports.updateAppointment = factory.updateOne(Appointment);
 
-  if (!appointment) {
-    return next(new AppError("No appointment found with that ID", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      appointment,
-    },
-  });
-});
-
-exports.deleteAppointment = catchAsync(async (req, res, next) => {
-  await appointmentService.deleteAppointment(req.params.id);
-
-  res.status(204).json({
-    status: "success",
-    data: null,
-  });
-});
+exports.deleteAppointment = factory.deleteOne(Appointment);
 
 exports.getMyAppointments = catchAsync(async (req, res, next) => {
   let appointments;

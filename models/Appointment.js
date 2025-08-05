@@ -21,23 +21,17 @@ const appointmentSchema = new mongoose.Schema(
       required: [true, "Appointment must have a date"],
     },
     time: String,
-    duration: {
-      type: Number,
-      default: 30, // minutes
-    },
     status: {
       type: String,
       enum: ["pending", "confirmed", "cancelled", "completed", "no-show"],
       default: "pending",
     },
-    reason: String,
     notes: String,
     paymentStatus: {
       type: String,
-      enum: ["unpaid", "paid", "partial", "insurance"],
+      enum: ["unpaid", "paid"],
       default: "unpaid",
     },
-    amount: Number,
     createdAt: {
       type: Date,
       default: Date.now(),

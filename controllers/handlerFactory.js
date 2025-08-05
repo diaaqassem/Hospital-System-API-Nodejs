@@ -4,7 +4,7 @@ const catchAsync = require("../utils/catchAsync");
 const logger = require("../utils/logger");
 
 /**
- * Generic factory for handling delete operations
+  factory for handling delete operations
  */
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -32,7 +32,7 @@ exports.deleteOne = (Model) =>
   });
 
 /**
- * Generic factory for handling update operations
+  factory for handling update operations
  */
 exports.updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -59,7 +59,7 @@ exports.updateOne = (Model) =>
   });
 
 /**
- * Generic factory for handling create operations
+  factory for handling create operations
  */
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -79,7 +79,7 @@ exports.createOne = (Model) =>
   });
 
 /**
- * Generic factory for handling get operations (single document)
+  factory for handling get operations (single document)
  */
 exports.getOne = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
@@ -101,7 +101,7 @@ exports.getOne = (Model, popOptions) =>
   });
 
 /**
- * Generic factory for handling get all operations
+  factory for handling get all operations
  */
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {

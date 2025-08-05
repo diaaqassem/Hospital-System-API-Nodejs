@@ -5,20 +5,6 @@ const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
 const { sendEmail } = require("../utils/email");
 
-exports.getAllAppointments = async (query) => {
-  const features = new APIFeatures(Appointment.find(), query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-
-  return await features.query;
-};
-
-exports.getAppointment = async (id) => {
-  return await Appointment.findById(id);
-};
-
 exports.createAppointment = async (data) => {
   // Check if doctor is available at that time
   const existingAppointment = await Appointment.findOne({
@@ -46,17 +32,6 @@ exports.createAppointment = async (data) => {
   }
 
   return appointment;
-};
-
-exports.updateAppointment = async (id, data) => {
-  return await Appointment.findByIdAndUpdate(id, data, {
-    new: true,
-    runValidators: true,
-  });
-};
-
-exports.deleteAppointment = async (id) => {
-  return await Appointment.findByIdAndDelete(id);
 };
 
 exports.getDoctorAppointments = async (doctorId) => {
