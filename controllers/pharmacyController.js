@@ -1,97 +1,53 @@
+const Pharmacy = require("../models/Pharmacy");
+const User = require("../models/User");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const pharmacyService = require("../services/pharmacyService");
+const factory = require("./handlerFactory");
 
-exports.getAllPharmacies = catchAsync(async (req, res, next) => {
-  const pharmacies = await pharmacyService.getAllPharmacies(req.query);
+exports.getAllPharmacies = factory.getAll(Pharmacy);
 
-  res.status(200).json({
-    status: "success",
-    results: pharmacies.length,
-    data: {
-      pharmacies,
-    },
-  });
-});
+exports.getPharmacy = factory.getOne(Pharmacy, "medications");
 
-exports.getPharmacy = catchAsync(async (req, res, next) => {
-  const pharmacy = await pharmacyService.getPharmacy(req.params.id);
-
-  if (!pharmacy) {
-    return next(new AppError("No pharmacy found with that ID", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      pharmacy,
-    },
-  });
-});
-
+// before create pharmacy check manager role is pharmacy
 exports.createPharmacy = catchAsync(async (req, res, next) => {
-  const newPharmacy = await pharmacyService.createPharmacy(req.body);
-
-  res.status(201).json({
-    status: "success",
-    data: {
-      pharmacy: newPharmacy,
-    },
-  });
+  const { manager } = req.body;
+  const managerUser = await User.findOne({ _id: manager });
+  if (!managerUser) return next(new AppError("Manager not found", 404));
+  if (managerUser.role !== "pharmacy")
+    return next(new AppError("Manager is not pharmacy", 404));
+  const newPharmacy = await Pharmacy.create(req.body);
+  res.status(201).json({ newPharmacy });
 });
+exports.updatePharmacy = factory.updateOne(Pharmacy);
 
-exports.updatePharmacy = catchAsync(async (req, res, next) => {
-  const pharmacy = await pharmacyService.updatePharmacy(
-    req.params.id,
-    req.body
-  );
+exports.deletePharmacy = factory.deleteOne(Pharmacy);
 
-  if (!pharmacy) {
-    return next(new AppError("No pharmacy found with that ID", 404));
-  }
+// exports.getPharmaciesWithin = catchAsync(async (req, res, next) => {
+//   const { distance, latlng, unit } = req.params;
+//   const pharmacies = await pharmacyService.getPharmacyWithin(
+//     distance,
+//     latlng,
+//     unit
+//   );
 
-  res.status(200).json({
-    status: "success",
-    data: {
-      pharmacy,
-    },
-  });
-});
+//   res.status(200).json({
+//     status: "success",
+//     results: pharmacies.length,
+//     data: {
+//       pharmacies,
+//     },
+//   });
+// });
 
-exports.deletePharmacy = catchAsync(async (req, res, next) => {
-  await pharmacyService.deletePharmacy(req.params.id);
+// exports.getDistances = catchAsync(async (req, res, next) => {
+//   const { latlng, unit } = req.params;
+//   const distances = await pharmacyService.getDistances(latlng, unit);
 
-  res.status(204).json({
-    status: "success",
-    data: null,
-  });
-});
-
-exports.getPharmaciesWithin = catchAsync(async (req, res, next) => {
-  const { distance, latlng, unit } = req.params;
-  const pharmacies = await pharmacyService.getPharmacyWithin(
-    distance,
-    latlng,
-    unit
-  );
-
-  res.status(200).json({
-    status: "success",
-    results: pharmacies.length,
-    data: {
-      pharmacies,
-    },
-  });
-});
-
-exports.getDistances = catchAsync(async (req, res, next) => {
-  const { latlng, unit } = req.params;
-  const distances = await pharmacyService.getDistances(latlng, unit);
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      distances,
-    },
-  });
-});
+//   res.status(200).json({
+//     status: "success",
+//     data: {
+//       distances,
+//     },
+//   });
+// });

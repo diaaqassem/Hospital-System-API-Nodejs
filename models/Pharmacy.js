@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { string } = require("yargs");
 
 const pharmacySchema = new mongoose.Schema(
   {
@@ -7,16 +8,7 @@ const pharmacySchema = new mongoose.Schema(
       required: [true, "A pharmacy must have a name"],
       unique: true,
     },
-    location: {
-      type: {
-        type: String,
-        default: "Point",
-        enum: ["Point"],
-      },
-      coordinates: [Number],
-      address: String,
-      description: String,
-    },
+    location: String,
     manager: {
       type: mongoose.Schema.ObjectId,
       ref: "User",

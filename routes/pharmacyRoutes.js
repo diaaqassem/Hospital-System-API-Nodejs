@@ -27,10 +27,10 @@ router
     pharmacyController.deletePharmacy
   );
 
-router.get(
-  "/within/:distance/center/:latlng/unit/:unit",
-  pharmacyController.getPharmaciesWithin
-);
-router.get("/distances/:latlng/unit/:unit", pharmacyController.getDistances);
+// router.get(
+//   "/within/:distance/center/:latlng/unit/:unit",
+//   pharmacyController.getPharmaciesWithin
+// );
+// router.get("/distances/:latlng/unit/:unit", pharmacyController.getDistances);
 
 module.exports = router;
