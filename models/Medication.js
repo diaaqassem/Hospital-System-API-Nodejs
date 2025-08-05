@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Pharmacy = require("./Pharmacy");
 
 const medicationSchema = new mongoose.Schema({
   name: {
@@ -10,18 +11,12 @@ const medicationSchema = new mongoose.Schema({
   genericName: String,
   dosageForm: {
     type: String,
-    enum: ["tablet", "capsule", "syrup", "injection", "ointment", "other"],
+    enum: ["tablet", "capsule", "injection", "other"],
   },
   strength: String,
-  manufacturer: String,
   price: {
     type: Number,
     required: [true, "A medication must have a price"],
-  },
-  stock: {
-    type: Number,
-    required: [true, "A medication must have stock quantity"],
-    min: [0, "Stock cannot be negative"],
   },
   pharmacy: {
     type: mongoose.Schema.ObjectId,
@@ -29,10 +24,6 @@ const medicationSchema = new mongoose.Schema({
     required: [true, "Medication must belong to a pharmacy"],
   },
   category: String,
-  prescriptionRequired: {
-    type: Boolean,
-    default: false,
-  },
   expiryDate: Date,
   barcode: String,
   createdAt: {
@@ -48,6 +39,22 @@ medicationSchema.pre(/^find/, function (next) {
     path: "pharmacy",
     select: "name location",
   });
+  next();
+});
+
+medicationSchema.pre("save", async function (next) {
+  if (this.isNew) {
+    const exists = await this.constructor.findOne({
+      name: this.name,
+      pharmacy: this.pharmacy,
+    });
+    if (exists) {
+      return next(
+        new Error("This medication already exists in this pharmacy.")
+      );
+    }
+    await this.constructor.calcMedicationsCount(this.pharmacy);
+  }
   next();
 });
 
