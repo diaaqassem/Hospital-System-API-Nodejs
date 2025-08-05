@@ -7,11 +7,6 @@ const nurseSchema = new mongoose.Schema(
       ref: "User",
       required: [true, "Nurse must belong to a user"],
     },
-    licenseNumber: {
-      type: String,
-      required: [true, "Nurse must have a license number"],
-      unique: true,
-    },
     specialization: [String],
     yearsOfExperience: Number,
     department: String,

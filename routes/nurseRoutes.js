@@ -7,7 +7,7 @@ router.use(authController.protect);
 
 router.get("/", nurseController.getAllNurses);
 router.post(
-  "/useId",
+  "/:userId",
   authController.restrictTo("admin", "manager"),
   nurseController.createNurse
 );
@@ -25,6 +25,6 @@ router.delete(
 );
 
 // Special nurse routes
-router.get("/available/:date", nurseController.getAvailableNurses);
+router.get("/available", nurseController.getAvailableNurses);
 
 module.exports = router;
