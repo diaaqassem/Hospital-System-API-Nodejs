@@ -10,7 +10,7 @@ exports.updateClinic = factory.updateOne(Clinic);
 exports.deleteClinic = factory.deleteOne(Clinic);
 
 exports.getClinicsByDoctor = catchAsync(async (req, res, next) => {
-  const clinics = await Clinic.find({ doctor: req.params.doctorId });
+  const clinics = await Clinic.find({ doctorID: req.params.doctorId });
 
   res.status(200).json({
     status: "success",

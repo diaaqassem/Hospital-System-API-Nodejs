@@ -27,6 +27,5 @@ router.delete(
 
 // Special clinic routes
 router.get("/doctor/:doctorId", clinicController.getClinicsByDoctor);
-router.get("/available/:date", clinicController.getAvailableClinics);
 
 module.exports = router;
