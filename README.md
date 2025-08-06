@@ -5,10 +5,9 @@ A scalable, modular Hospital Management System built with Node.js (Express.js), 
 ---
 
 ## Project Structure
-<html>
-<center><img width="562" height="460" alt="image" src="https://github.com/user-attachments/assets/e42d3570-683f-4124-86c9-5627e38d3e14" />
-
- </center></html>
+<p align="center">
+  <img width="562" height="460" src="https://github.com/user-attachments/assets/e42d3570-683f-4124-86c9-5627e38d3e14" alt="Project Structure" />
+</p>
 
 ---
 
