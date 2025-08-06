@@ -2,7 +2,6 @@ const Appointment = require("../models/Appointment");
 const Doctor = require("../models/Doctor");
 const Patient = require("../models/Patient");
 const AppError = require("../utils/appError");
-const APIFeatures = require("../utils/apiFeatures");
 const { sendEmail } = require("../utils/email");
 
 exports.createAppointment = async (data) => {

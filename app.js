@@ -55,34 +55,6 @@ app.use("/api/v1/pharmacies", pharmacyRouter);
 app.use("/api/v1/medications", medicationRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/rooms", roomRouter);
-// app.use("/api/v1/bills", billingRouter);
-
-// logger
-// // app.use(logger.requestLogger);
-// logger.info("Server started on port 3000");
-// logger.error("Database connection failed", { error: err });
-// logger.debug("Debug information", { someObject });
-// logger.securityLogger("Failed login attempt", null, {
-//   ip: req.ip,
-//   userAgent: req.headers["user-agent"],
-//   email: req.body.email,
-// });
-// logger.auditLogger("User updated", user, req.user, {
-//   changedFields: {
-//     from: oldValues,
-//     to: newValues,
-//   },
-// });
-
-// For Mongoose
-// mongoose.set("debug", (collection, method, query, doc) => {
-//   logger.databaseLogger({
-//     collection,
-//     operation: method,
-//     criteria: query,
-//     duration: doc,
-//   });
-// });
 
 // Handle 404
 app.all("*", (req, res, next) => {
@@ -99,4 +71,3 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}...`);
 });
 
-// module.exports = app;

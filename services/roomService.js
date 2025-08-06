@@ -1,6 +1,5 @@
 const Room = require("../models/Room");
 const AppError = require("../utils/appError");
-const APIFeatures = require("../utils/apiFeatures");
 
 exports.checkRoomAvailability = async (roomId, checkIn, checkOut) => {
   const room = await Room.findById(roomId);

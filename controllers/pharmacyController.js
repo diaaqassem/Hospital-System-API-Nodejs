@@ -21,32 +21,3 @@ exports.createPharmacy = catchAsync(async (req, res, next) => {
 exports.updatePharmacy = factory.updateOne(Pharmacy);
 
 exports.deletePharmacy = factory.deleteOne(Pharmacy);
-
-// exports.getPharmaciesWithin = catchAsync(async (req, res, next) => {
-//   const { distance, latlng, unit } = req.params;
-//   const pharmacies = await pharmacyService.getPharmacyWithin(
-//     distance,
-//     latlng,
-//     unit
-//   );
-
-//   res.status(200).json({
-//     status: "success",
-//     results: pharmacies.length,
-//     data: {
-//       pharmacies,
-//     },
-//   });
-// });
-
-// exports.getDistances = catchAsync(async (req, res, next) => {
-//   const { latlng, unit } = req.params;
-//   const distances = await pharmacyService.getDistances(latlng, unit);
-
-//   res.status(200).json({
-//     status: "success",
-//     data: {
-//       distances,
-//     },
-//   });
-// });

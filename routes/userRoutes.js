@@ -3,14 +3,7 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const authController = require("../controllers/authController");
 
-// // Public routes (no authentication required)
-// router.post("/signup", authController.signup);
-// router.post("/login", authController.login);
-// router.post("/forgotPassword", authController.forgotPassword);
-// router.patch("/resetPassword/:token", authController.resetPassword);
-// // router.get("/me", userController.getMe, userController.getUser);
-
-// // Protect all routes after this middleware (require authentication)
+// // (require authentication)
 router.use(authController.protect);
 
 // Routes for logged-in users

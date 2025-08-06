@@ -6,36 +6,7 @@ const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const sendEmail = require("../utils/email");
 const { createSendToken } = require("../utils/jwtToken");
-// const signToken = (id) => {
-//   return jwt.sign({ id }, process.env.JWT_SECRET, {
-//     expiresIn: process.env.JWT_EXPIRES_IN,
-//   });
-// };
 
-// const createSendToken = (user, statusCode, res) => {
-//   const token = signToken(user._id);
-//   const cookieOptions = {
-//     expires: new Date(
-//       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-//     ),
-//     httpOnly: true,
-//   };
-
-//   if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
-
-//   res.cookie("jwt", token, cookieOptions);
-
-//   // Remove password from output
-//   user.password = undefined;
-
-//   res.status(statusCode).json({
-//     status: "success",
-//     token,
-//     data: {
-//       user,
-//     },
-//   });
-// };
 
 exports.signup = catchAsync(async (req, res, next) => {
   const { name, email, password, passwordConfirm, role } = req.body;
@@ -207,48 +178,3 @@ exports.restrictTo = (...roles) => {
     next();
   };
 };
-
-// exports.getMe = (req, res, next) => {
-//   req.params.id = req.user.id;
-//   next();
-// };
-
-// exports.updateMe = catchAsync(async (req, res, next) => {
-//   // 1) Create error if user POSTs password data
-//   if (req.body.password || req.body.passwordConfirm) {
-//     return next(
-//       new AppError(
-//         "This route is not for password updates. Please use /updateMyPassword.",
-//         400
-//       )
-//     );
-//   }
-
-//   // 2) Filter out unwanted fields that shouldn't be updated
-//   const filteredBody = {
-//     name: req.body.name,
-//     email: req.body.email,
-//   };
-
-//   // 3) Update user document
-//   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
-//     new: true,
-//     runValidators: true,
-//   });
-
-//   res.status(200).json({
-//     status: "success",
-//     data: {
-//       user: updatedUser,
-//     },
-//   });
-// });
-
-// exports.deleteMe = catchAsync(async (req, res, next) => {
-//   await User.findByIdAndUpdate(req.user.id, { active: false });
-
-//   res.status(204).json({
-//     status: "success",
-//     data: null,
-//   });
-// });

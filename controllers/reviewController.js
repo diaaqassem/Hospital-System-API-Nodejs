@@ -1,33 +1,11 @@
 const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/appError");
 const reviewService = require("../services/reviewService");
+const factory = require("./handlerFactory");
+const Review = require("../models/Review");
 
-exports.getAllReviews = catchAsync(async (req, res, next) => {
-  const reviews = await reviewService.getAllReviews(req.query);
+exports.getAllReviews =factory.getAll(Review)
 
-  res.status(200).json({
-    status: "success",
-    results: reviews.length,
-    data: {
-      reviews,
-    },
-  });
-});
-
-exports.getReview = catchAsync(async (req, res, next) => {
-  const review = await reviewService.getReview(req.params.id);
-
-  if (!review) {
-    return next(new AppError("No review found with that ID", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      review,
-    },
-  });
-});
+exports.getReview = factory.getOne(Review)
 
 exports.createReview = catchAsync(async (req, res, next) => {
   // Allow nested routes
@@ -49,29 +27,9 @@ exports.createReview = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.updateReview = catchAsync(async (req, res, next) => {
-  const review = await reviewService.updateReview(req.params.id, req.body);
+exports.updateReview = factory.updateOne(Review)
 
-  if (!review) {
-    return next(new AppError("No review found with that ID", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      review,
-    },
-  });
-});
-
-exports.deleteReview = catchAsync(async (req, res, next) => {
-  await reviewService.deleteReview(req.params.id);
-
-  res.status(204).json({
-    status: "success",
-    data: null,
-  });
-});
+exports.deleteReview = factory.deleteOne(Review)
 
 exports.getEntityReviews = catchAsync(async (req, res, next) => {
   const { entityType, entityId } = req.params;

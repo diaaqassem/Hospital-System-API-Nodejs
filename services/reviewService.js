@@ -1,20 +1,5 @@
 const Review = require("../models/Review");
 const AppError = require("../utils/appError");
-const APIFeatures = require("../utils/apiFeatures");
-
-exports.getAllReviews = async (query) => {
-  const features = new APIFeatures(Review.find(), query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-
-  return await features.query;
-};
-
-exports.getReview = async (id) => {
-  return await Review.findById(id);
-};
 
 exports.createReview = async (data) => {
   // Check if review already exists for this patient and entity
@@ -46,16 +31,6 @@ exports.createReview = async (data) => {
   return await Review.create(data);
 };
 
-exports.updateReview = async (id, data) => {
-  return await Review.findByIdAndUpdate(id, data, {
-    new: true,
-    runValidators: true,
-  });
-};
-
-exports.deleteReview = async (id) => {
-  return await Review.findByIdAndDelete(id);
-};
 
 exports.getEntityReviews = async (entityType, entityId) => {
   let query = {};
