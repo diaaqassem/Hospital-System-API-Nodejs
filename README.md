@@ -1,12 +1,13 @@
 # Hospital-System-API-Nodejs
 
-A scalable, modular Hospital Management System built with Node.js, MongoDB, and Firebase tools. It provides support for patients, doctors, nurses, pharmacy management, appointments, room assignments, and more.
+A scalable, modular Hospital Management System built with Node.js (Express.js), MongoDB. It provides support for patients, doctors, nurses, pharmacy management, appointments, room assignments, and more.
 
 ---
 
 ## Project Structure
 
-<center> ![alt text](image.png) </center>
+<center> <img width="142" height="299" alt="image" src="https://github.com/user-attachments/assets/13530106-74b7-4dad-a7d2-cf49712d58b1" />
+ </center>
 
 ---
 
