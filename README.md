@@ -34,6 +34,9 @@ A scalable, modular Hospital Management System built with Node.js (Express.js), 
 - **Nodemailer (email system)**
 - **Multer (file uploads)**
 - **Rate Limiting & Sanitization for security**
+- **Docker**
+- **ESLint & Prettier for code quality**
+- **prometheus & Grafana for monitoring**
 
 ---
 

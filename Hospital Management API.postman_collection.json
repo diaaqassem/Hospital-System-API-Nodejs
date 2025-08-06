@@ -1,0 +1,1699 @@
+{
+	"info": {
+		"_postman_id": "27ab74ba-da5b-439a-b1d1-21467f45fea8",
+		"name": "Hospital Management API",
+		"description": "Complete API test collection for Hospital Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31212171"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "User Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Diaa Qassem\",\n    \"email\": \"patient@diaa.com\",\n    \"password\": \"test1234\",\n    \"passwordConfirm\": \"test1234\",\n    \"addresses\":[\n        \"EG\",\n        \"CU\"\n    ],\n    \"role\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"diaa@diaa.com\",\n    \"password\": \"diaa1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"diaa@diaa.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/forgotPassword",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"forgotPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Pass",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"diaa@diaa.com\",\n    \"passwordConfirm\": \"diaa1234\",\n    \"password\": \"diaa1234\",\n    \"resetCode\": \"492170\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/resetPassword",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"resetPassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctor",
+			"item": [
+				{
+					"name": "create doctor (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"specialty\": \"Cardiologist\",\r\n  \"qualifications\": [\"MBBS\", \"MD Cardiology\"],\r\n  \"experience\": 12,\r\n  \"bio\": \"Dr. Ahmed is a highly experienced cardiologist with a passion for patient care.\",\r\n  \"availableHours\": {\r\n    \"start\": \"09:00 AM\",\r\n    \"end\": \"05:00 PM\"\r\n  },\r\n  \"consultationFee\": 300,\r\n  \"rating\": 4.8,\r\n  \"ratingsQuantity\": 27,\r\n  \"languages\": [\"English\", \"Arabic\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/doctors/6890dee6b58258c19ea4dbf7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"doctors",
+								"6890dee6b58258c19ea4dbf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/doctors/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"doctors",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update doctor (Admin)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"specialty\": \"update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/doctors/68915912acbd86a3eef77c84",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"doctors",
+								"68915912acbd86a3eef77c84"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete doctor (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/doctors/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"doctors",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all doctors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/doctors",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pharmacy",
+			"item": [
+				{
+					"name": "create pharmacies(Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"HealthyLife Pharmacy\",\r\n  \"location\": \"floor2\",\r\n  \"manager\": \"6890dee6b58258c19ea4dbf7\",\r\n  \"contactNumber\": \"+20 1558271885\",\r\n  \"operatingHours\": {\r\n    \"open\": \"08:00 AM\",\r\n    \"close\": \"11:00 PM\"\r\n  },\r\n  \"medicationsCount\": 145,\r\n  \"isActive\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/pharmacies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pharmacies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/pharmacies/68917157d18cf5d1d3544737",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pharmacies",
+								"68917157d18cf5d1d3544737"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update pharmacies(Admin)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"specialty\": \"update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/pharmacies/6890dee6b58258c19ea4dbf7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pharmacies",
+								"6890dee6b58258c19ea4dbf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete pharmacies(Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/pharmacies/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pharmacies",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all pharmacies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/pharmacies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pharmacies"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Nurse",
+			"item": [
+				{
+					"name": "create nurses(Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"specialization\": [\"Wound Care\", \"Post-Op Recovery\"],\r\n  \"yearsOfExperience\": 5,\r\n  \"department\": \"Emergency\",\r\n  \"shift\": \"rotating\",\r\n  \"isAvailable\": true,\r\n  \"rating\": 4.7,\r\n  \"ratingsQuantity\": 15\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/nurses/6890dee6b58258c19ea4dbf7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nurses",
+								"6890dee6b58258c19ea4dbf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/nurses/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nurses",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update nurses(Admin)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"specialty\": \"update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/nurses/6890dee6b58258c19ea4dbf7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nurses",
+								"6890dee6b58258c19ea4dbf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete nurses(Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/nurses/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nurses",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all nurses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/nurses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nurses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all  Available nurses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/nurses/available",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nurses",
+								"available"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reviews",
+			"item": [
+				{
+					"name": "create reviews(Patient)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"review\": \"Dr. Ahmed was very kind and professional.\",\r\n  \"rating\": 5,\r\n  \"patient\": \"64fc8aa45ef917d85ad9c001\",\r\n  \"doctor\": \"64fc8ab25ef917d85ad9c002\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/reviews/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/reviews/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update reviews",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"specialty\": \"update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/reviews/6890dee6b58258c19ea4dbf7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"6890dee6b58258c19ea4dbf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete reviews",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/reviews/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all reviews",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/reviews",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all reviews/entity/:entityType/:entityId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/reviews/entity/doctor/:entityId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"entity",
+								"doctor",
+								":entityId"
+							],
+							"variable": [
+								{
+									"key": "entityId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "appointments",
+			"item": [
+				{
+					"name": "appointments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patient\": \"64d352bcfd1e8c4a53e40a79\",\r\n  \"doctor\": \"64d35304f0d5826a123ddc5e\",\r\n  \"clinic\": \"64d35344a4e60a8972d1f35b\",\r\n  \"date\": \"2025-08-10T10:00:00Z\",\r\n  \"time\": \"10:00 AM\",\r\n  \"status\": \"confirmed\",\r\n  \"notes\": \"Patient requested a blood test after consultation.\",\r\n  \"paymentStatus\": \"paid\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/appointments/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"appointments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get /my-appointments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/appointments/my-appointments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"appointments",
+								"my-appointments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update appointments",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"specialty\": \"update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/appointments/6890dee6b58258c19ea4dbf7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"appointments",
+								"6890dee6b58258c19ea4dbf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete appointments",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/appointments/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"appointments",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all vappointments(Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/appointments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "clinics",
+			"item": [
+				{
+					"name": "clinics",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Cairo Heart Clinic\",\r\n  \"freeDate\": \"2025-08-12T00:00:00Z\",\r\n  \"dateInDay\": \"Monday, Wednesday\",\r\n  \"price\": 300,\r\n  \"ticket\": 15,\r\n  \"payment\": \"credit\",\r\n  \"doctorID\": \"64d35304f0d5826a123ddc5e\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/clinics/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"clinics",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get getClinicsByDoctor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clinics/doctor/64d35304f0d5826a123ddc5e",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"clinics",
+								"doctor",
+								"64d35304f0d5826a123ddc5e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update clinics",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"specialty\": \"update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/clinics/6890dee6b58258c19ea4dbf7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"clinics",
+								"6890dee6b58258c19ea4dbf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete clinics",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clinics/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"clinics",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all clinics(Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/clinics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"clinics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rooms",
+			"item": [
+				{
+					"name": "rooms",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"roomNumber\": \"302B\",\r\n  \"roomType\": \"private\",\r\n  \"floor\": 3,\r\n  \"capacity\": 1,\r\n  \"costPerDay\": 500,\r\n  \"status\": \"available\",\r\n  \"assignedNurse\": \"64f9b79c2a95a3de90f9c123\",\r\n  \"lastCleaned\": \"2025-07-31T14:30:00Z\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/rooms/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"rooms",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get room",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/rooms/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"rooms",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update rooms",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"specialty\": \"update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/rooms/6890dee6b58258c19ea4dbf7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"rooms",
+								"6890dee6b58258c19ea4dbf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete rooms",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/rooms/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"rooms",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check room availability",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/rooms/68927a7791d75972411b327e/availability",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"rooms",
+								"68927a7791d75972411b327e",
+								"availability"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "medications",
+			"item": [
+				{
+					"name": "medications",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Augmentin 1g\",\r\n  \"genericName\": \"Amoxicillin + Clavulanic Acid\",\r\n  \"dosageForm\": \"tablet\",\r\n  \"strength\": \"1000mg\",\r\n  \"price\": 130,\r\n  \"pharmacy\": \"64f02b18a3bc7df8d54c0123\",\r\n  \"category\": \"Antibiotic\",\r\n  \"expiryDate\": \"2026-10-01\",\r\n  \"barcode\": \"8901122334455\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/medications/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medications",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get medication",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/medications/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medications",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMedicationsByPharmacy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/medications/pharmacy/64f02b18a3bc7df8d54c0123",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medications",
+								"pharmacy",
+								"64f02b18a3bc7df8d54c0123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update medications(Admin)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"specialty\": \"update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/medications/6890dee6b58258c19ea4dbf7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medications",
+								"6890dee6b58258c19ea4dbf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete medications(Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/medications/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"medications",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all clinics(Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/nurses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"nurses"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "patients",
+			"item": [
+				{
+					"name": "create patients(Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bloodType\": \"A+\",\r\n  \"height\": 172,\r\n  \"weight\": 68,\r\n  \"medications\": [\"Paracetamol\", \"Vitamin D\"],\r\n  \"emergencyContact\": {\r\n    \"name\": \"Mona Ahmed\",\r\n    \"relationship\": \"Mother\",\r\n    \"phone\": \"+20 122 345 6789\"\r\n  },\r\n  \"assignedNurse\": \"64d351bb95b2030c8e871f1c\",\r\n  \"primaryDoctor\": \"68915912acbd86a3eef77c84\",\r\n  \"lastVisit\": \"2025-07-15T10:30:00Z\",\r\n  \"nextAppointment\": \"2025-08-10T14:00:00Z\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/patients/68917ea8611e0e453e8af70e",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patients",
+								"68917ea8611e0e453e8af70e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/patients/68918054bf739e28f410e2b7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patients",
+								"68918054bf739e28f410e2b7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update patients(Admin)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"specialty\": \"update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/patients/6890dee6b58258c19ea4dbf7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patients",
+								"6890dee6b58258c19ea4dbf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete patients(Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/patients/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patients",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all patients",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/patients",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get patients by Doctor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/patients/docid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patients",
+								"docid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get patients by nurse",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{patient_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/patients/nurseid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"patients",
+								"nurseid"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"exec": [
+					""
+				],
+				"type": "text/javascript"
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"exec": [
+					""
+				],
+				"type": "text/javascript"
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "admin_token",
+			"value": "your_admin_jwt_token_here"
+		},
+		{
+			"key": "doctor_token",
+			"value": "your_doctor_jwt_token_here"
+		},
+		{
+			"key": "patient_token",
+			"value": "your_patient_jwt_token_here"
+		},
+		{
+			"key": "pharmacy_token",
+			"value": "your_pharmacy_jwt_token_here"
+		},
+		{
+			"key": "doctor_id",
+			"value": "your_doctor_id_here"
+		},
+		{
+			"key": "patient_id",
+			"value": "your_patient_id_here"
+		},
+		{
+			"key": "pharmacy_id",
+			"value": "your_pharmacy_id_here"
+		}
+	]
+}
