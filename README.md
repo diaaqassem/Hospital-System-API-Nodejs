@@ -5,6 +5,7 @@ A scalable, modular Hospital Management System built with Node.js (Express.js), 
 ---
 
 ## Project Structure
+
 <p align="center">
   <img width="562" height="460" src="https://github.com/user-attachments/assets/e42d3570-683f-4124-86c9-5627e38d3e14" alt="Project Structure" />
 </p>
@@ -63,4 +64,24 @@ npm install
 npm run start:dev
 ```
 
+---
+
 ## For Test API Using Postman and Hospital 'Management API file.json' in root directory
+
+---
+
+## Dockerfile
+
+```
+# Build the Docker image
+docker build -t hospital-system .
+
+# Run the container
+docker run -p 3000:3000 --env-file .env hospital-system
+```
+
+## Or Run My Image
+
+```
+docker run -p 3000:3000 --env-file .env diaaqassem1/hospital-system:1.0
+```
