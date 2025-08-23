@@ -1,0 +1,5 @@
+fileignoreconfig:
+- filename: sonar-project.properties
+  checksum: 264d1c0efa9e1ecd91d3db40cd3a55502445426c03fa7abf5245b261749e864f
+- filename: .scannerwork/report-task.txt
+  checksum: cc60973257d8f361226e841b6bc4f91ece648f7a83a008912b13c27ee0d83895
